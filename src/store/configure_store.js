@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState }                          from 'redux-devtools';
 
-import DevTools                                  from '../dev/dev_tools';
+import DevTools                                  from 'atomic-reactor/libs/dev/dev_tools';
 
 export default function(initialState, rootReducer, middleware) {
 
