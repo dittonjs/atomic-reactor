@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 
-const settings = require('./config/settings');
+const settings = require('./build/settings');
 
 const serverApp = express();
 
@@ -29,4 +29,4 @@ function launch(servePath, port) {
   });
 }
 
-launch(settings.prodOutput, settings.hotPort);
+launch(settings.paths.prodOutput, settings.hotPort);
