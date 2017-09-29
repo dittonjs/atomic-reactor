@@ -44,7 +44,10 @@ module.exports = function webpackConfig(app, options = {}) {
       }
     }, {
       loader: 'postcss-loader',
-      options: { sourceMap: outputSourceMaps }
+      options: {
+        sourceMap: outputSourceMaps,
+        path: './postcss.config.js'
+      }
     }
   ];
 
