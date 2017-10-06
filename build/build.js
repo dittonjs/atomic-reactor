@@ -75,7 +75,6 @@ function build(app, logger = () => {}) {
   }
 
   const webpackAssets = webpackUtils.loadWebpackAssets(app);
-  console.log(webpackAssets);
   // Build html
   logger('info', 'BUILDING', `Building html for ${app.name}`);
   const pages = buildHtml(app, webpackAssets, logger);

@@ -7,10 +7,8 @@ const utils = require('./utils');
 // Loads webpack assets file
 // -----------------------------------------------------------------------------
 function loadWebpackAssets(app) {
-  // console.log(app.outputPath);
   return _(fs.readdirSync(app.outputPath)
   ).filter(filename => {
-    console.log(filename)
     return _.endsWith(filename, '-webpack-assets.json')
   }
   ).reduce((result, filename) => {
