@@ -87,9 +87,7 @@ module.exports = function webpackConfig(app, options = {}) {
 
   const extractCSS = new ExtractTextPlugin(app.production ? '[name]-[chunkhash].css' : '[name].css');
 
-  let plugins = [
-    new HtmlBuilderPlugin(app, options),
-  ];
+  let plugins = [];
 
   if (!app.codeSplittingOff) {
     plugins = _.concat(plugins, [
@@ -140,6 +138,8 @@ module.exports = function webpackConfig(app, options = {}) {
       }),
     ]);
   }
+
+  plugins.push(new HtmlBuilderPlugin(app, options));
   // TODO fix the hot reload
   //  else if (app.stage === 'hot') {
   //   plugins = _.concat(plugins, [

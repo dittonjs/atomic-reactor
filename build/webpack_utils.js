@@ -7,9 +7,12 @@ const utils = require('./utils');
 // Loads webpack assets file
 // -----------------------------------------------------------------------------
 function loadWebpackAssets(app) {
+  // console.log(app.outputPath);
   return _(fs.readdirSync(app.outputPath)
-  ).filter(filename =>
-    _.endsWith(filename, '-webpack-assets.json')
+  ).filter(filename => {
+    console.log(filename)
+    return _.endsWith(filename, '-webpack-assets.json')
+  }
   ).reduce((result, filename) => {
     const webpackAssetsFilePath = path.join(app.outputPath, filename);
     if (fs.existsSync(webpackAssetsFilePath)) {
@@ -29,6 +32,7 @@ function apply(html, webpackAssets, buildSuffix) {
   if (!webpackAssets) {
     throw new Error('Invalid webpack assets.');
   }
+
   _.each(webpackAssets, (assets, name) => {
     _.each(assets, (hashedName, ext) => {
       if (ext === 'js') {

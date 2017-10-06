@@ -42,6 +42,7 @@ function watchHtml(webpackAssets, app, logger = () => {}) {
 }
 
 function buildHtml(app, webpackAssets, logger = () => {}) {
+
   const pages = content.buildContents(
     app.htmlPath,
     app,
@@ -74,7 +75,7 @@ function build(app, logger = () => {}) {
   }
 
   const webpackAssets = webpackUtils.loadWebpackAssets(app);
-
+  console.log(webpackAssets);
   // Build html
   logger('info', 'BUILDING', `Building html for ${app.name}`);
   const pages = buildHtml(app, webpackAssets, logger);
