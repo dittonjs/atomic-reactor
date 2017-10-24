@@ -23,7 +23,7 @@
     "url": "https://github.com/atomicjolt/atomic-reactor/issues"
   },
   "homepage": "https://github.com/atomicjolt/atomic-reactor",
-  "devDependencies": {
+  "dependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.1",
     "babel-cli": "^6.26.0",
