@@ -32,6 +32,9 @@ function runServer(serverApp, port, servePath) {
   serverApp.get('*', (req, res) => {
     res.sendFile(path.join(servePath, req.url));
   });
+  serverApp.post('*', (req, res) => {
+    res.sendFile(path.join(servePath, req.url));
+  });
   serverApp.listen(port, localIp, (err) => {
     if (err) {
       console.log(err);
