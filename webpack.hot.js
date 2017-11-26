@@ -11,11 +11,39 @@ const localIp = '0.0.0.0';
 const appName = argv.app;
 const hotPack = argv.hotPack;
 const shouldLint = argv.lint;
+let rootOutput = argv.rootOutput;
+
+let appPerPort = true;
+let onlyPack = false;
+
+if (rootOutput === true) {
+  appPerPort = false;
+}
+
+if (hotPack) {
+  // Only run webpack. Do not run the rest of the build process
+  onlyPack = true;
+  appPerPort = false;
+  if (_.isUndefined(rootOutput)) {
+    rootOutput = true;
+  }
+}
 
 const {
   hotPort,
   paths
 } = require('./build/settings');
+
+const options = {
+  hotPack,
+  shouldLint,
+  stage: 'hot',
+  onlyPack,
+  port:
+  hotPort,
+  rootOutput,
+  appPerPort
+};
 
 function setupMiddleware(serverApp, compiler) {
   const webpackMiddlewareInstance = webpackMiddleware(compiler, {
@@ -51,18 +79,12 @@ function launch(app, compiler) {
   runServer(serverApp, app.port, app.outputPath);
 }
 
-const options = { hotPack, shouldLint, stage: 'hot', onlyPack: false, port: hotPort, appPerPort: true };
-
 if (appName) {
   // Run a single app. Note that when using yarn hot in order to run a single
   // application you will need to type 'yarn hot -- --app=my-app'
   const result = clientApps.buildApp(appName, options);
   launch(result.app, result.webpackCompiler);
 } else if (hotPack) {
-  // Only run webpack. Do not run the rest of the build process
-  options.onlyPack = true;
-  options.rootOutput = true;
-  options.appPerPort = false;
   const results = clientApps.buildAppsForOneServer(options);
   const serverApp = express();
   setupMiddleware(serverApp, results.webpackCompiler);
@@ -71,6 +93,11 @@ if (appName) {
   // Run and serve all applications
   const results = clientApps.buildAppsForMultipleServers(options);
   _.each(results, (result) => {
-    launch(result.app, result.webpackCompiler);
+    if (result.app.options.onlyPack) {
+      console.log(`Only packing output for: ${result.app.name}`);
+    } else {
+      console.log(`Starting server for: ${result.app.name}`);
+      launch(result.app, result.webpackCompiler);
+    }
   });
 }
