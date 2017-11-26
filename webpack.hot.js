@@ -89,15 +89,17 @@ if (appName) {
   const serverApp = express();
   setupMiddleware(serverApp, results.webpackCompiler);
   runServer(serverApp, hotPort, paths.devOutput);
+} else if (rootOutput) {
+  // One app will be responsible for html while all others will
+  // only have javascript and assets
+  const results = clientApps.buildAppsForOneServer(options);
+  const serverApp = express();
+  setupMiddleware(serverApp, results.webpackCompiler);
+  runServer(serverApp, hotPort, paths.devOutput);
 } else {
   // Run and serve all applications
   const results = clientApps.buildAppsForMultipleServers(options);
   _.each(results, (result) => {
-    if (result.app.options.onlyPack) {
-      console.log(`Only packing output for: ${result.app.name}`);
-    } else {
-      console.log(`Starting server for: ${result.app.name}`);
-      launch(result.app, result.webpackCompiler);
-    }
+    launch(result.app, result.webpackCompiler);
   });
 }

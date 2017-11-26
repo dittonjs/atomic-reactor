@@ -24,3 +24,25 @@ becomes
   }
 }
 ```
+
+# Atomic Reactor Modes
+Atomic Reactor supports multiple Javascript applications along with a templating engine that can built your html and assets.
+
+1. Running multiple servers - one per application. Just run `yarn hot` and each application will be served independently on it's own
+port starting with the 'hotPort'
+
+2. Running a single app at a time. Run `yarn hot --app [application name]` and only a single application will be started.
+
+3. Only outputting Javascript and assets while ignoring all html. Running `yarn hot --onlyPack` will ignore all html files
+and start a server that will output assets. This is useful when used in conjunction with another application framework
+like Ruby on Rails.
+
+4. Outputting a single site that contains html to support the other applications. Build your html in one application and the
+in all other applications set options.json to:
+`
+{
+  "rootOutput": true,
+  "onlyPack": true
+}
+`
+
