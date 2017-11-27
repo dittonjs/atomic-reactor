@@ -45,7 +45,10 @@ function buildAppsForMultipleServers(options) {
 function buildAppsForOneServer(options) {
   const apps = settings.apps(options);
   clean(apps, options);
-  const webpackConfigs = _.map(apps, app => webpackConfigBuilder(app, options));
+  const webpackConfigs = _(apps)
+    .sortBy((app) => { return app.options.onlyPack ? 0 : 1; })
+    .map(app => webpackConfigBuilder(app, options))
+    .value();
   const webpackCompiler = webpack(webpackConfigs);
 
   return {
@@ -57,5 +60,5 @@ function buildAppsForOneServer(options) {
 module.exports = {
   buildApp,
   buildAppsForMultipleServers,
-  buildAppsForOneServer
+  buildAppsForOneServer,
 };

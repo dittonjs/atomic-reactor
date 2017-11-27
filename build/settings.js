@@ -11,6 +11,9 @@ const {
   prodOutput,
   buildSuffix,
   htmlOptions,
+  templateData, // Object that will be passed to every page as it is rendered
+  templateMap, // Used to specify specific templates on a per file basis
+  themeTemplateDirs,
 } = require('../../../config/settings');
 
 // -----------------------------------------------------------------------------
@@ -129,19 +132,25 @@ function appSettings(name, port, options) {
   let combinedOptions = options;
   if (fs.existsSync(customOptionsPath)) {
     const customOptions = JSON.parse(fs.readFileSync(customOptionsPath, 'utf8'));
-    combinedOptions = _.merge(options, customOptions);
+    combinedOptions = _.merge({}, options, customOptions);
   }
 
   const app = _.merge({
     htmlPath,
     staticPath,
-    templateData: {}, // Object that will be passed to every page as it is rendered
-    templateMap: {}, // Used to specify specific templates on a per file basis
+    templateData: templateData || {},
+    templateMap: templateMap || {},
     htmlOptions,
+    options: combinedOptions,
   }, webpackSettings(name, 'app.jsx', appPath, port, combinedOptions),
      outputPaths(name, port, appPath, combinedOptions));
 
-  app.templateDirs = templateDirs(app, ['layouts']);
+  if (themeTemplateDirs) {
+    app.templateDirs = _.union(templateDirs(app, ['layouts']), themeTemplateDirs);
+  } else {
+    app.templateDirs = templateDirs(app, ['layouts']);
+  }
+
   return {
     [name] : app
   };
