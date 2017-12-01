@@ -24,6 +24,12 @@ const FlowCompilerPlugin   = require('./build/plugins/flow_compiler');
 //      'test'
 const outputSourceMaps = true;
 
+function customMerger(objValue, srcValue) {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue);
+  }
+}
+
 module.exports = function webpackConfig(app, options = {}) {
 
   const jsLoaders = ['babel-loader'];
@@ -184,7 +190,7 @@ module.exports = function webpackConfig(app, options = {}) {
     };
   }
 
-  return {
+  return _.mergeWith({
     context: path.resolve('../apps', __dirname),
     name: app.name,
     entry,
@@ -204,5 +210,5 @@ module.exports = function webpackConfig(app, options = {}) {
     stats: 'minimal',
     plugins,
     module: { rules },
-  };
+  }, app.customWebpack, customMerger);
 };
