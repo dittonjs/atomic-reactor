@@ -3,6 +3,7 @@ const path = require('path');
 const _ = require('lodash');
 
 const utils = require('./utils');
+const configDir = '../../../config';
 
 const {
   paths,
@@ -14,7 +15,7 @@ const {
   templateData, // Object that will be passed to every page as it is rendered
   templateMap, // Used to specify specific templates on a per file basis
   themeTemplateDirs,
-} = require('../../../config/settings');
+} = require(`${configDir}/settings`);
 
 // -----------------------------------------------------------------------------
 // Helper function to generate full template paths for the given app
@@ -90,22 +91,38 @@ function outputPaths(name, port, appPath, options) {
   };
 }
 
+function getWebpackJson(path) {
+  if (fs.existsSync(path)) {
+    return JSON.parse(fs.readFileSync(path, 'utf8'));
+  }
+  return {};
+}
+
+function getWebpackJs(configPath) {
+  try {
+    return (require(configPath))();
+  } catch (e) {
+    return {};
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Generate settings needed for webpack
 // Allow for custom overrides to be placed in webpack.json
 // -----------------------------------------------------------------------------
 function webpackSettings(name, file, appPath, port, options) {
 
-  let custom = {};
-  const customWebpack = `${appPath}/webpack.json`;
-
-  if (fs.existsSync(customWebpack)) {
-    custom = JSON.parse(fs.readFileSync(customWebpack, 'utf8'));
-  }
+  const customWebpack = _.merge(
+    {},
+    getWebpackJson(`${appPath}/webpack.json`),
+    getWebpackJs(`${appPath}/webpack.js`),
+    getWebpackJson(`${configDir}/webpack.json`),
+    getWebpackJs(`${configDir}/webpack.js`),
+  );
 
   const production = isProduction(options.stage);
 
-  return _.merge({
+  return {
     name,
     file,
     path: appPath,
@@ -116,7 +133,8 @@ function webpackSettings(name, file, appPath, port, options) {
     port,
     filename: production ? '[name]-[chunkhash]' : '[name]',
     chunkFilename: production ? '[id]-[chunkhash]' : '[id]',
-  }, custom);
+    customWebpack,
+  };
 }
 
 // -----------------------------------------------------------------------------
