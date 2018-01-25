@@ -95,7 +95,7 @@ module.exports = function webpackConfig(app, options = {}) {
 
   let plugins = [];
 
-  if (!app.codeSplittingOff) {
+  if (!app.options.codeSplittingOff) {
     plugins = _.concat(plugins, [
       // Use to extract common code from multiple entry points into a single init.js
       new webpack.optimize.CommonsChunkPlugin({
