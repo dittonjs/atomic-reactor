@@ -106,14 +106,17 @@ module.exports = function webpackConfig(app, options = {}) {
         name: `${app.name}_manifest`,
         minChunks: Infinity
       }),
-      // Generate webpack-assets.json to map path to assets generated with hashed names
-      new AssetsPlugin({
-        path: app.outputPath,
-        fullPath: false,
-        filename: `${app.name}-webpack-assets.json`
-      })
     ]);
   }
+
+  plugins = _.concat(plugins, [
+    // Generate webpack-assets.json to map path to assets generated with hashed names
+    new AssetsPlugin({
+      path: app.outputPath,
+      fullPath: false,
+      filename: `${app.name}-webpack-assets.json`
+    })
+  ]);
 
   if (!app.extractCssOff) {
     plugins.push(extractCSS);
