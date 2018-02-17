@@ -57,7 +57,7 @@ module.exports = function webpackConfig(app, options = {}) {
     }
   ];
 
-  if (app.extractCssOff) {
+  if (app.options.extractCssOff) {
     cssLoaders.unshift({
       loader: 'style-loader',
       options: {
@@ -118,7 +118,7 @@ module.exports = function webpackConfig(app, options = {}) {
     })
   ]);
 
-  if (!app.extractCssOff) {
+  if (!app.options.extractCssOff) {
     plugins.push(extractCSS);
   }
 
@@ -160,9 +160,9 @@ module.exports = function webpackConfig(app, options = {}) {
   const rules = [
     { test: /\.js$/, use: jsLoaders, exclude: /node_modules/ },
     { test: /\.jsx?$/, use: jsLoaders, exclude: /node_modules/ },
-    { test: /\.s[ac]ss$/i, use: app.extractCssOff ? scssLoaders : extractCSS.extract(scssLoaders) },
-    { test: /\.css$/i, use: app.extractCssOff ? cssLoaders : extractCSS.extract(cssLoaders) },
-    { test: /\.less$/i, use: app.extractCssOff ? lessLoaders : extractCSS.extract(lessLoaders) },
+    { test: /\.s[ac]ss$/i, use: app.options.extractCssOff ? scssLoaders : extractCSS.extract(scssLoaders) },
+    { test: /\.css$/i, use: app.options.extractCssOff ? cssLoaders : extractCSS.extract(cssLoaders) },
+    { test: /\.less$/i, use: app.options.extractCssOff ? lessLoaders : extractCSS.extract(lessLoaders) },
     { test: /.*\.(gif|png|jpg|jpeg|svg)$/, use: ['url-loader?limit=500&hash=sha512&digest=hex&size=16&name=[name]-[hash].[ext]'] },
     { test: /.*\.(eot|woff2|woff|ttf)$/, use: ['url-loader?limit=500&hash=sha512&digest=hex&size=16&name=[name]-[hash].[ext]'] },
     { test: /\.tpl$/, loader: 'lodash-template-webpack-loader' }
