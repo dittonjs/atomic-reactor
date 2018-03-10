@@ -185,7 +185,7 @@ module.exports = function webpackConfig(app, options = {}) {
     modules: ['node_modules', `${app.path}/node_modules`]
   };
 
-  if (app.preact) {
+  if (app.options.preact) {
     resolve.alias = {
       react: 'preact-compat',
       'react-dom': 'preact-compat',
