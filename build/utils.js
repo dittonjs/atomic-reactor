@@ -49,5 +49,5 @@ function joinUrlOrPath(...args) {
 module.exports = {
   cleanTag,
   filename2date,
-  joinUrlOrPath,
+  joinUrlOrPath
 };

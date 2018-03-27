@@ -82,11 +82,11 @@ function build(app, logger = () => {}) {
   return {
     app,
     webpackAssets,
-    pages,
+    pages
   };
 }
 
 module.exports = {
   build,
-  buildHtml,
+  buildHtml
 };

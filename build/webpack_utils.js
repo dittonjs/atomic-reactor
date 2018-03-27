@@ -45,5 +45,5 @@ function apply(html, webpackAssets, buildSuffix) {
 
 module.exports = {
   apply,
-  loadWebpackAssets,
+  loadWebpackAssets
 };
