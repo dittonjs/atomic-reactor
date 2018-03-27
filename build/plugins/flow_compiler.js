@@ -36,7 +36,7 @@ module.exports = class FlowCompilerPlugin {
         (error, out) => {
           resolve({
             out,
-            error,
+            error
           });
         }
       );
