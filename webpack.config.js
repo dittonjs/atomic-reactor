@@ -61,7 +61,7 @@ module.exports = function webpackConfig(app, options = {}) {
     cssLoaders.unshift({
       loader: 'style-loader',
       options: {
-        sourceMap: outputSourceMaps,
+        sourceMap: outputSourceMaps
       }
     });
   }
@@ -74,7 +74,7 @@ module.exports = function webpackConfig(app, options = {}) {
       includePaths: [
         `${app.path}/node_modules`
       ],
-      outputStyle: (app.production ? 'compressed' : 'expanded'),
+      outputStyle: (app.production ? 'compressed' : 'expanded')
     }
   });
   scssLoaders[0].options.importLoaders = 2;
@@ -126,7 +126,7 @@ module.exports = function webpackConfig(app, options = {}) {
     plugins = _.concat(plugins, [
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"', __DEV__: true }),
       new FriendlyErrorsPlugin({ clearConsole: false }),
-      new FlowCompilerPlugin(app),
+      new FlowCompilerPlugin(app)
     ]);
   }
 
@@ -144,7 +144,7 @@ module.exports = function webpackConfig(app, options = {}) {
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: false
-      }),
+      })
     ]);
   }
 
@@ -212,6 +212,6 @@ module.exports = function webpackConfig(app, options = {}) {
     devtool: app.production ? 'source-map' : 'cheap-module-eval-source-map', // https://webpack.js.org/configuration/devtool/
     stats: 'minimal',
     plugins,
-    module: { rules },
+    module: { rules }
   }, app.customWebpack, customMerger);
 };

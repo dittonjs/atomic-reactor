@@ -26,7 +26,7 @@ function buildApp(appName, options) {
 
   return {
     app,
-    webpackCompiler,
+    webpackCompiler
   };
 }
 
@@ -35,7 +35,7 @@ function buildAppsForMultipleServers(options) {
   clean(apps, options);
   return _.map(apps, app => ({
     app,
-    webpackCompiler: webpack(webpackConfigBuilder(app, options)),
+    webpackCompiler: webpack(webpackConfigBuilder(app, options))
   }));
 }
 
@@ -53,12 +53,12 @@ function buildAppsForOneServer(options) {
 
   return {
     apps,
-    webpackCompiler,
+    webpackCompiler
   };
 }
 
 module.exports = {
   buildApp,
   buildAppsForMultipleServers,
-  buildAppsForOneServer,
+  buildAppsForOneServer
 };

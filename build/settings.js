@@ -14,7 +14,7 @@ const {
   htmlOptions,
   templateData, // Object that will be passed to every page as it is rendered
   templateMap, // Used to specify specific templates on a per file basis
-  themeTemplateDirs,
+  themeTemplateDirs
 } = require(`${configDir}/settings`);
 
 // -----------------------------------------------------------------------------
@@ -117,7 +117,7 @@ function webpackSettings(name, file, appPath, port, options) {
     getWebpackJson(`${appPath}/webpack.json`),
     getWebpackJs(`${appPath}/webpack.js`),
     getWebpackJson(`${configDir}/webpack.json`),
-    getWebpackJs(`${configDir}/webpack.js`),
+    getWebpackJs(`${configDir}/webpack.js`)
   );
 
   const production = isProduction(options.stage);
@@ -133,7 +133,7 @@ function webpackSettings(name, file, appPath, port, options) {
     port,
     filename: production ? '[name]-[chunkhash]' : '[name]',
     chunkFilename: production ? '[id]-[chunkhash]' : '[id]',
-    customWebpack,
+    customWebpack
   };
 }
 
@@ -159,7 +159,7 @@ function appSettings(name, port, options) {
     templateData: templateData || {},
     templateMap: templateMap || {},
     htmlOptions,
-    options: combinedOptions,
+    options: combinedOptions
   }, webpackSettings(name, 'app.jsx', appPath, port, combinedOptions),
      outputPaths(name, port, appPath, combinedOptions));
 
@@ -206,5 +206,5 @@ module.exports = {
   outputPaths,
   apps,
   hotPort,
-  isProduction,
+  isProduction
 };
