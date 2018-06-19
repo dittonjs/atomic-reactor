@@ -165,7 +165,8 @@ module.exports = function webpackConfig(app, options = {}) {
     { test: /\.less$/i, use: app.options.extractCssOff ? lessLoaders : extractCSS.extract(lessLoaders) },
     { test: /.*\.(gif|png|jpg|jpeg|svg)$/, use: ['url-loader?limit=500&hash=sha512&digest=hex&size=16&name=[name]-[hash].[ext]'] },
     { test: /.*\.(eot|woff2|woff|ttf)$/, use: ['url-loader?limit=500&hash=sha512&digest=hex&size=16&name=[name]-[hash].[ext]'] },
-    { test: /\.tpl$/, loader: 'lodash-template-webpack-loader' }
+    { test: /\.tpl$/, loader: 'lodash-template-webpack-loader' },
+    { test: /\.(graphql|gql)$/, exclude: /node_modules/, loader: 'graphql-tag/loader' }
   ];
 
   const entryPath = path.join(app.path, app.file);
