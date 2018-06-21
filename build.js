@@ -1,6 +1,10 @@
-const apps = require('./build/apps');
-const log = require('./build/log');
 const argv = require('minimist')(process.argv.slice(2));
+
+const configDir = argv.configDir;
+const settings = require('./build/settings')(configDir);
+
+const apps = require('./build/apps')(settings);
+const log = require('./build/log');
 
 const stage = argv.release ? 'production' : 'development';
 const port = parseInt(process.env.ASSETS_PORT, 10) || 8080;
