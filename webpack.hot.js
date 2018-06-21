@@ -5,13 +5,13 @@ const webpackMiddleware = require('webpack-dev-middleware');
 // const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
-const clientApps = require('./build/apps');
 
 const localIp = '0.0.0.0';
 const appName = argv.app;
 const hotPack = argv.hotPack;
 const shouldLint = argv.lint;
 let rootOutput = argv.rootOutput;
+const configDir = argv.configDir;
 
 let appPerPort = true;
 let onlyPack = false;
@@ -29,10 +29,14 @@ if (hotPack) {
   }
 }
 
+const settings = require('./build/settings')(configDir);
+
 const {
   hotPort,
   paths
-} = require('./build/settings');
+} = settings;
+
+const clientApps = require('./build/apps')(settings);
 
 const options = {
   hotPack,

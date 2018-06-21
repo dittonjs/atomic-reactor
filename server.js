@@ -1,7 +1,11 @@
+const argv = require('minimist')(process.argv.slice(2));
+
+const configDir = argv.configDir;
+
 const path = require('path');
 const express = require('express');
 
-const settings = require('./build/settings');
+const settings = require('./build/settings')(configDir);
 
 const serverApp = express();
 
