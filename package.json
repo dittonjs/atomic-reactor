@@ -7,9 +7,9 @@
     "watch": "jest --config=config/jest_config.json --watch"
   },
   "bin": {
-    "webpack-hot": "./webpack.hot.js",
-    "webpack-server": "./server.js",
-    "webpack-build": "./build.js",
+    "atomic-webpack-hot": "./webpack.hot.js",
+    "atomic-webpack-server": "./server.js",
+    "atomic-webpack-build": "./build.js",
     "atomic-reactor": "./atomic-reactor.js"
   },
   "engines": {
