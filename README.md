@@ -20,7 +20,7 @@ becomes
 ```Json
 {
   "scripts": {
-    "hot": "node ./node_modules/atomic-reactor/webpack.hot.js --configDir=client/config"
+    "hot": "webpack-hot --configDir=client/config"
   }
 }
 ```
