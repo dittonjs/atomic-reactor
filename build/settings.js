@@ -99,11 +99,10 @@ module.exports = function settingsBuilder(configDir) {
   }
 
   function getWebpackJs(configPath) {
-    try {
+    if (fs.existsSync(configPath)) {
       return (require(configPath))();
-    } catch (e) {
-      return {};
     }
+    return {};
   }
 
   // -----------------------------------------------------------------------------
