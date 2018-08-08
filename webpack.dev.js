@@ -14,8 +14,10 @@ const hotPack = argv.hotPack;
 const shouldLint = argv.lint;
 let rootOutput = argv.rootOutput;
 const configDir = argv.configDir;
-const codeSplittingOff = argv.codeSplittingOff;
-const extractCssOff = argv.extractCssOff;
+const hot = argv.hot;
+const codeSplittingOff = argv.codeSplittingOff || hot;
+const extractCssOff = argv.extractCssOff || hot;
+
 
 let appPerPort = true;
 let onlyPack = false;
@@ -45,7 +47,7 @@ const clientApps = require('./build/apps')(settings);
 const options = {
   hotPack,
   shouldLint,
-  stage: 'hot',
+  stage: hot ? 'hot' : 'development',
   onlyPack,
   port:
   hotPort,
