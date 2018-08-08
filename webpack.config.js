@@ -146,17 +146,14 @@ module.exports = function webpackConfig(app, options = {}) {
         openAnalyzer: false
       })
     ]);
+  } else if (app.stage === 'hot') {
+    plugins = _.concat(plugins, [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
+    ]);
   }
 
   plugins.push(new HtmlBuilderPlugin(app, options));
-  // TODO fix the hot reload
-  //  else if (app.stage === 'hot') {
-  //   plugins = _.concat(plugins, [
-  //     // new webpack.HotModuleReplacementPlugin(),
-  //     // new webpack.NoEmitOnErrorsPlugin(),
-  //   ]);
-  // }
-
   const rules = [
     { test: /\.js$/, use: jsLoaders, exclude: /node_modules/ },
     { test: /\.jsx?$/, use: jsLoaders, exclude: /node_modules/ },
@@ -176,7 +173,7 @@ module.exports = function webpackConfig(app, options = {}) {
     // Add hot reload to entry
     entry[app.name] = [
       'eventsource-polyfill',
-      // `webpack-hot-middleware/client?name=${app.name}`,
+      `webpack-hot-middleware/client?name=${app.name}`,
       entryPath
     ];
   }

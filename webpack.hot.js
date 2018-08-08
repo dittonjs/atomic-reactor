@@ -4,7 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 
 const webpackMiddleware = require('webpack-dev-middleware');
-// const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -14,6 +14,8 @@ const hotPack = argv.hotPack;
 const shouldLint = argv.lint;
 let rootOutput = argv.rootOutput;
 const configDir = argv.configDir;
+const codeSplittingOff = argv.codeSplittingOff;
+const extractCssOff = argv.extractCssOff;
 
 let appPerPort = true;
 let onlyPack = false;
@@ -59,6 +61,7 @@ function setupMiddleware(serverApp, compiler) {
     headers: { 'Access-Control-Allow-Origin': '*' }
   });
   serverApp.use(webpackMiddlewareInstance);
+  serverApp.use(webpackHotMiddleware(compiler))
 }
 
 function runServer(serverApp, port, servePath) {
