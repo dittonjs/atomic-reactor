@@ -63,7 +63,9 @@ function setupMiddleware(serverApp, compiler) {
     headers: { 'Access-Control-Allow-Origin': '*' }
   });
   serverApp.use(webpackMiddlewareInstance);
-  serverApp.use(webpackHotMiddleware(compiler))
+  if (hot) {
+    serverApp.use(webpackHotMiddleware(compiler))
+  }
 }
 
 function runServer(serverApp, port, servePath) {
