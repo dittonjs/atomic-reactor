@@ -10,7 +10,7 @@ const applyHtmlPaths = require('./html_paths');
 const file = require('./file');
 const log = require('./log');
 
-const ignoreFiles     = ['.DS_Store'];
+const ignoreFiles = ['.DS_Store'];
 
 // -----------------------------------------------------------------------------
 // Generate the output file name and path
