@@ -16,7 +16,7 @@ class HtmlBuilderPlugin {
   }
 
   apply(compiler) {
-    compiler.plugin('after-emit', (compilation, callback) => {
+    compiler.plugin('done', (stats) => {
       // we kick off the initial build but then handle the watching and
       // rebuilding of the html ourselves
       if (this.shouldBuild) {
@@ -28,7 +28,6 @@ class HtmlBuilderPlugin {
           output.title('error', 'ERROR', err);
         }
       }
-      callback();
     });
   }
 }
