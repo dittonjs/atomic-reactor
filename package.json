@@ -83,6 +83,7 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
+    "csv-loader": "^3.0.2",
     "graphql-tag": "^2.9.2",
     "jest": "^20.0.4"
   }
