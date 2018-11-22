@@ -1,6 +1,6 @@
 {
   "name": "atomic-reactor",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Atomic Jolt's React build tool",
   "scripts": {
     "test": "jest --config=config/jest_config.json",
