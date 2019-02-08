@@ -1,0 +1,6 @@
+[submodule "react_client_starter_app"]
+	path = react_client_starter_app
+	url = git@github.com:atomicjolt/react_client_starter_app.git
+[submodule "lti_starter_app"]
+	path = lti_starter_app
+	url = git@github.com:atomicjolt/lti_starter_app.git
